@@ -1,0 +1,53 @@
+<ion-content>
+
+  <div class="ressource-container" *ngIf="ressource">
+
+    <div class="ressource-image" *ngIf="ressource.type == 'image'">
+      <img [src]="ressource.link" alt="">
+    </div>
+    <div class="ressource-pdf" *ngIf="ressource.type == 'pdf'">
+      <pdf-viewer [src]="ressource.link" [render-text]="true" [original-size]="false">
+      </pdf-viewer>
+    </div>
+  </div>
+</ion-content>
+
+<div class="ressource-actions">
+  <div class="zone">
+    <div class="absolute-actions">
+      <ion-button class="btn-close" (click)="close_modal()">
+        <svg viewBox="0 0 22 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M16.5 6L5.5 17" stroke="#A6A5A5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M5.5 6L16.5 17" stroke="#A6A5A5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </ion-button>
+    </div>
+    <ion-button class="btn-share">
+      <svg width="37" height="36" viewBox="0 0 37 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M27.5 12C29.9853 12 32 9.98528 32 7.5C32 5.01472 29.9853 3 27.5 3C25.0147 3 23 5.01472 23 7.5C23 9.98528 25.0147 12 27.5 12Z"
+          stroke="#F7623C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+        <path
+          d="M9.5 22.5C11.9853 22.5 14 20.4853 14 18C14 15.5147 11.9853 13.5 9.5 13.5C7.01472 13.5 5 15.5147 5 18C5 20.4853 7.01472 22.5 9.5 22.5Z"
+          stroke="#F7623C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+        <path
+          d="M27.5 33C29.9853 33 32 30.9853 32 28.5C32 26.0147 29.9853 24 27.5 24C25.0147 24 23 26.0147 23 28.5C23 30.9853 25.0147 33 27.5 33Z"
+          stroke="#F7623C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M13.3906 20.2656L23.6356 26.2356" stroke="#F7623C" stroke-width="3" stroke-linecap="round"
+          stroke-linejoin="round" />
+        <path d="M23.6206 9.76562L13.3906 15.7356" stroke="#F7623C" stroke-width="3" stroke-linecap="round"
+          stroke-linejoin="round" />
+      </svg>
+      Partager cette ressource
+    </ion-button>
+    <div class="ressource-details">
+      <h3>{{ ressource.title }}</h3>
+      <div class="ressource-type {{ ressource.type }}">
+        <div>
+          <ion-icon name="{{ ressource.icon }}"></ion-icon>
+          <span>{{ ressource.type }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

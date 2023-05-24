@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      <div class="retard-title">
+        <h3>Retard</h3>
+        <div>
+          <p>{{ seance.periode }}
+            .
+            {{seance.matiere}} - {{seance.classe}}</p>
+        </div>
+      </div>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="retard-container">
+
+    <div>
+      <ion-select interface="popover" [(ngModel)]="minutes">
+        <ion-select-option *ngFor="let number of [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60]" [value]="number">{{
+          number }} min
+        </ion-select-option>
+      </ion-select>
+    </div>
+    <img [src]="eleve.photo" alt="">
+    <p>{{eleve.nom}}</p>
+  </div>
+
+</ion-content>
+<div class="retard-actions">
+  <div class="zone">
+    <ion-button class="btn-close" (click)="close_modal()">
+      Fermer
+    </ion-button>
+    <ion-button class="btn-save" (click)="save_modal()">
+      Ajouter
+    </ion-button>
+  </div>
+</div>

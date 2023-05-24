@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      <div class="discipline-title">
+        <h3>Discipline</h3>
+        <div>
+          <p>{{ seance.periode }}
+            .
+            {{seance.matiere}} - {{seance.classe}}</p>
+        </div>
+      </div>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="discipline-container">
+
+    <div class="actions">
+      <ion-slides [options]="slideTypes">
+        <ion-slide *ngFor="let action_item of actions">
+          <div class="action-item" (click)="set_action(action_item.id)"
+            [ngClass]="{'unchecked-action': action != action_item.id}" [ngStyle]="{'border-color': action_item.color}">
+            <span *ngIf="action == action_item.id" [ngStyle]="{'background-color': action_item.color}">{{
+              action_item.value > 0 ?
+              '+'+action_item.value:action_item.value
+              }}</span>
+            <div class="icon" [ngStyle]="{'background-color': action_item.color}"></div>
+            <p [ngStyle]="{'color': action_item.color}">{{ action_item.label }}</p>
+          </div>
+        </ion-slide>
+      </ion-slides>
+    </div>
+    <ion-input placeholder="Ajouter un commentaire ici.." [(ngModel)]="commentaire" type="text">
+    </ion-input>
+  </div>
+
+</ion-content>
+<div class="discipline-actions">
+  <div class="zone">
+    <ion-button class="btn-close" (click)="close_modal()">
+      Fermer
+    </ion-button>
+    <ion-button class="btn-save" (click)="save_modal()">
+      Ajouter
+    </ion-button>
+  </div>
+</div>

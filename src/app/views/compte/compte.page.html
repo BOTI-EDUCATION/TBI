@@ -1,0 +1,63 @@
+<ion-header mode="md">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Mon compte</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="compte_page">
+
+
+  <div class="tbi-padding">
+
+    <ion-button class="btn-settings" (click)="logOut()" fill="outline">
+      <ion-icon slot="icon-only" name="power"></ion-icon>
+    </ion-button>
+    <form [formGroup]="compteForm">
+      <ion-list class="ion-list-form">
+        <div class="photo_client" (click)="uploadImage()">
+          <div class="img_container" [style.background-image]="'url('+ croppedImagepath +')'">
+            <div class="photo_icon">
+              <ion-icon name="camera-outline"></ion-icon>
+              <span>Modifier</span>
+            </div>
+          </div>
+        </div>
+        <ion-item lines="none">
+          <ion-label position="floating">Nom</ion-label>
+          <ion-input [(ngModel)]="_currentProfile.nom" formControlName="nom" type="text">
+          </ion-input>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label position="floating">Prénom</ion-label>
+          <ion-input [(ngModel)]="_currentProfile.prenom" formControlName="prenom" type="text">
+          </ion-input>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label position="floating">Email</ion-label>
+          <ion-input [(ngModel)]="_currentProfile.email" formControlName="email" type="text">
+          </ion-input>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label position="floating">Teléphone</ion-label>
+          <ion-input [(ngModel)]="_currentProfile.tel" formControlName="tel" type="text">
+          </ion-input>
+        </ion-item>
+        <ion-item lines="none" hidden>
+          <ion-label position="floating">Pays de résidence</ion-label>
+          <ion-select interface="popover" formControlName="pays_id" [selectedText]="_currentProfile.pays_label"
+            [(ngModel)]="_currentProfile.pays_id">
+            <ion-select-option *ngFor="let n of pays" [value]="n.value">{{ n['text'] }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+
+      <ion-button (click)="update()">
+        Enregistrer
+        <ion-icon name="arrow-forward-outline"></ion-icon>
+      </ion-button>
+    </form>
+  </div>
+</ion-content>

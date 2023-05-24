@@ -1,0 +1,187 @@
+.ressources-title {
+    text-align: left;
+    padding: 1.2rem 1.2rem;
+    h3 {
+        font-family: "Manrope";
+        font-weight: 700;
+        font-size: 1.5rem;
+        letter-spacing: -0.05em;
+        color: #12122C;
+        margin: 0;
+        margin-bottom: 7px;
+    }
+    div {
+        display: flex;
+        align-items: center;
+        p {
+            font-family: 'Manrope';
+            font-style: normal;
+            font-weight: 600;
+            font-size: .9rem;
+            letter-spacing: -0.04em;
+            color: #989898;
+            margin: 0;
+            padding-right: 10px;
+            span {
+                color: #12122C;
+            }
+        }
+        p:fisrt-child {
+            border-right: 1px solid #D2D2D2;
+        }
+    }
+}
+.ressource-item {
+    margin-top: 1rem;
+    cursor: pointer;
+    .img-container {
+        padding: 0px 2rem;
+        img {
+            border-radius: 13px;
+            min-height: 6rem;
+            background-color: #F9F9F9;
+            min-width: 100%;
+        }
+    }
+    h3 {
+        font-family: 'Manrope';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 1rem;
+        letter-spacing: -0.02em;
+        color: #000000;
+        margin: 0;
+    }
+    .ressource-type {
+        background: #E6F4E5;
+        border-radius: 200px;
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        font-size: 0.85rem;
+        margin-top: 1rem;
+        div {
+            display: flex;
+            align-items: center;
+        }
+        ion-icon {
+            font-size: 1rem;
+            margin-right: 4px;
+        }
+        span {
+            font-family: 'Manrope';
+            font-style: normal;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            text-transform: uppercase;
+        }
+    }
+    .ressource-type.pdf {
+        background: #FFEAEA;
+        ion-icon {
+            color: #F23C3C;
+        }
+        span {
+            color: #F23C3C;
+        }
+    }
+    .ressource-type.image {
+        background: #E6F4E5;
+        ion-icon {
+            color: #599F54;        
+        }
+        span {
+            color: #599F54;       
+         }
+    }
+}
+
+.sidebar-content {
+    .sidebar-matiere {
+        border-radius: 200px;
+        padding: 0.6rem 1rem;
+        margin-bottom: 0.5rem;
+        cursor: pointer;
+        span {
+            font-family: 'Manrope';
+            font-style: normal;
+            font-weight: 600;
+            font-size: .9rem;
+            letter-spacing: -0.03em;
+            color: #A5A1A1;
+        }
+    }
+    .sidebar-matiere.active {
+        background: #FFF0EC;
+        span {
+            color: #F7623C;
+        }
+    }
+}
+
+.ressources-grid {
+    ion-row {
+        margin: 0px -12px;
+        ion-col {
+            --ion-grid-column-padding: 12px;
+        }
+    }
+    ion-grid {
+        width: 100%;
+    }
+    .all-ressources {
+      background: #fff;
+      padding: 0px 0px;
+      border-radius: 10px;
+      .scrollable-ressources-col {
+          padding-top: 0;
+          padding-bottom: 0;
+          padding-left: 0;
+          border-left: 1px solid #E3E3E3;
+          height: max-content;
+          .ressources {
+            overflow: hidden;
+            overflow-y: scroll;
+            height: 70vh;
+        }
+      }
+      .sidebar-col {
+          padding-right: 0;
+      }
+      .sidebar-niveaux {
+        overflow: hidden;
+        overflow-y: scroll;
+        height: 65vh;
+        padding-bottom: 10vh;
+      }
+    }
+}
+
+.ressources-actions {
+    position: absolute;
+    bottom: 0;
+    padding-bottom: calc( 0px + var(--ion-safe-area-bottom, 0));
+    width: 100%;
+    background: #fff;
+    .zone {
+        display: flex;
+        align-items: center;
+        position: relative;
+        width: 100%;
+        padding: 1rem;
+        z-index: 9999;
+        .btn-close {
+            --border-radius: 50%;
+            width: 3.5rem;
+            height: 3.5rem;
+            --background: linear-gradient(180deg, #F1465D 0%, #F86836 100%);
+            --box-shadow: 0px 2px 10px rgba(246, 94, 65, 0.4);
+            --padding-bottom: 0;
+            --padding-start: 0;
+            --padding-end: 0;
+            --padding-top: 0;
+            svg {
+                width: 1.2rem;
+            }
+        }
+    }
+}

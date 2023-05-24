@@ -1,0 +1,190 @@
+<ion-tabs #tabs>
+  <div class="tab-bottom">
+    <div *ngIf="!user" class="login-btn">
+      <ion-button (click)="login_page()">
+        <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M31.6693 33.25V30.0833C31.6693 28.4036 31.002 26.7927 29.8143 25.605C28.6265 24.4173 27.0156 23.75 25.3359 23.75H12.6693C10.9896 23.75 9.37866 24.4173 8.19093 25.605C7.0032 26.7927 6.33594 28.4036 6.33594 30.0833V33.25"
+            stroke="white"
+            stroke-width="2.7"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M18.9974 17.4167C22.4952 17.4167 25.3307 14.5811 25.3307 11.0833C25.3307 7.58553 22.4952 4.75 18.9974 4.75C15.4996 4.75 12.6641 7.58553 12.6641 11.0833C12.6641 14.5811 15.4996 17.4167 18.9974 17.4167Z"
+            stroke="white"
+            stroke-width="2.7"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+        Se connecter
+      </ion-button>
+    </div>
+
+    <ion-fab *ngIf="user" horizontal="start" vertical="bottom" slot="fixed">
+      <ion-fab-button style="--background: linear-gradient(180deg, #f1465d 0%, #f86836 100%)">
+        <ion-icon md="add-sharp" ios="close-sharp"></ion-icon>
+      </ion-fab-button>
+
+      <ion-fab-list side="end" class="fab-ion">
+        <ion-button (click)="presence_page()">
+          <svg width="53" height="54" viewBox="0 0 53 54" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M47.6978 25.9416H43.2458C42.9647 25.9416 42.695 25.8299 42.4963 25.6311C42.2975 25.4323 42.1858 25.1627 42.1858 24.8816C42.1858 24.6005 42.2975 24.3308 42.4963 24.1321C42.695 23.9333 42.9647 23.8216 43.2458 23.8216H47.6978C47.9789 23.8216 48.2485 23.9333 48.4473 24.1321C48.6461 24.3308 48.7578 24.6005 48.7578 24.8816C48.7578 25.1627 48.6461 25.4323 48.4473 25.6311C48.2485 25.8299 47.9789 25.9416 47.6978 25.9416ZM40.8163 20.1031C40.6068 20.1031 40.402 20.0409 40.2278 19.9246C40.0536 19.8083 39.9178 19.6429 39.8375 19.4494C39.7572 19.2559 39.736 19.043 39.7766 18.8375C39.8173 18.632 39.9179 18.4431 40.0658 18.2947L43.2225 15.1296C43.4224 14.9365 43.6901 14.8297 43.9681 14.8321C44.246 14.8345 44.5119 14.946 44.7084 15.1425C44.9049 15.339 45.0164 15.6049 45.0188 15.8828C45.0212 16.1607 44.9144 16.4285 44.7213 16.6284L41.5646 19.7936C41.366 19.9917 41.0969 20.103 40.8163 20.1031ZM43.973 34.9346C43.8337 34.9349 43.6957 34.9077 43.5669 34.8546C43.4381 34.8014 43.3211 34.7235 43.2225 34.6251L40.0658 31.4684C39.9645 31.3706 39.8838 31.2537 39.8282 31.1244C39.7727 30.995 39.7435 30.8559 39.7422 30.7152C39.741 30.5744 39.7678 30.4349 39.8211 30.3046C39.8744 30.1743 39.9531 30.056 40.0527 29.9564C40.1522 29.8569 40.2705 29.7782 40.4008 29.7249C40.5311 29.6716 40.6707 29.6448 40.8114 29.646C40.9521 29.6472 41.0912 29.6765 41.2206 29.732C41.3499 29.7876 41.4669 29.8683 41.5646 29.9696L44.7298 33.1263C44.8776 33.2745 44.9781 33.4632 45.0188 33.6685C45.0596 33.8738 45.0386 34.0866 44.9585 34.28C44.8785 34.4734 44.743 34.6387 44.5691 34.7552C44.3952 34.8717 44.1907 34.9342 43.9814 34.9346H43.973Z"
+              fill="#5BB94B"
+            />
+            <path
+              d="M40.2799 24.8782C40.2796 23.6567 39.8575 22.4729 39.0849 21.5268C38.3123 20.5808 37.2366 19.9306 36.0399 19.6863V12.1582C36.0421 11.9647 35.9913 11.7743 35.8931 11.6076C35.7948 11.441 35.6528 11.3044 35.4825 11.2126C35.3121 11.1209 35.1199 11.0776 34.9267 11.0873C34.7334 11.097 34.5466 11.1594 34.3863 11.2678C28.6623 15.0838 19.1859 17.1826 17.9351 17.4582H11.6599C9.81792 17.451 8.03915 18.1292 6.66952 19.3608C5.29989 20.5925 4.43733 22.2895 4.24959 24.1219C4.06186 25.9543 4.56238 27.791 5.65381 29.2747C6.74524 30.7585 8.34953 31.7833 10.1547 32.1498H10.1759L14.2463 40.6722C14.4396 41.0976 14.7181 41.4788 15.0644 41.7924C15.4108 42.1059 15.8178 42.3452 16.2603 42.4954C16.6291 42.6204 17.0157 42.6848 17.4051 42.6862C17.9479 42.6805 18.483 42.5576 18.9739 42.3258C19.7577 41.926 20.364 41.2478 20.6738 40.4243C20.9836 39.6007 20.9746 38.6911 20.6487 37.8738L18.4015 32.4042C24.0179 33.5744 29.4132 35.628 34.3863 38.4886C34.566 38.5959 34.7706 38.6544 34.9799 38.6582C35.1571 38.6563 35.3314 38.6127 35.4887 38.531C35.6546 38.4379 35.793 38.3026 35.8898 38.1388C35.9866 37.975 36.0384 37.7885 36.0399 37.5982V30.0701C37.2366 29.8258 38.3123 29.1756 39.0849 28.2296C39.8575 27.2835 40.2796 26.0996 40.2799 24.8782ZM6.35987 24.8782C6.35987 23.4725 6.91826 22.1245 7.9122 21.1305C8.90615 20.1366 10.2542 19.5782 11.6599 19.5782H16.9599V30.1782H11.6599C10.2542 30.1782 8.90615 29.6198 7.9122 28.6259C6.91826 27.6319 6.35987 26.2838 6.35987 24.8782ZM18.6771 38.6794C18.8072 38.9986 18.8118 39.3552 18.6899 39.6777C18.568 40.0001 18.3286 40.2645 18.0199 40.4178C17.8571 40.5009 17.6789 40.5495 17.4965 40.5604C17.3141 40.5714 17.1314 40.5445 16.9599 40.4814C16.7814 40.4267 16.617 40.334 16.4779 40.2095C16.3388 40.0851 16.2284 39.9319 16.1543 39.7606L12.5927 32.2982H16.0483L18.6771 38.6794ZM33.9199 35.7114C29.2262 33.2986 24.2373 31.5097 19.0799 30.3902V19.3662C24.2373 18.2466 29.2262 16.4578 33.9199 14.045V35.7114ZM36.0399 27.8674V21.8932C36.6595 22.1091 37.1966 22.5124 37.5766 23.0473C37.9567 23.5822 38.1609 24.222 38.1609 24.8782C38.1609 25.5343 37.9567 26.1742 37.5766 26.7091C37.1966 27.2439 36.6595 27.6473 36.0399 27.8631V27.8674Z"
+              fill="#5BB94B"
+            />
+            <path
+              d="M16.9616 21.7422V23.8622H11.6616C11.3804 23.8622 11.1108 23.7505 10.912 23.5517C10.7132 23.3529 10.6016 23.0833 10.6016 22.8022C10.6016 22.5211 10.7132 22.2514 10.912 22.0527C11.1108 21.8539 11.3804 21.7422 11.6616 21.7422H16.9616ZM16.9616 25.9398V28.0598H13.9088C13.6276 28.0598 13.358 27.9481 13.1592 27.7493C12.9604 27.5505 12.8488 27.2809 12.8488 26.9998C12.8488 26.7187 12.9604 26.449 13.1592 26.2503C13.358 26.0515 13.6276 25.9398 13.9088 25.9398H16.9616Z"
+              fill="#5BB94B"
+            />
+          </svg>
+          <span>Présence</span>
+        </ion-button>
+        <ion-button (click)="discipline_page()">
+          <svg
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            stroke="#ca4444"
+            stroke-width="1"
+            stroke-linecap="round"
+            stroke-linejoin="miter"
+          >
+            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+            <g id="SVGRepo_iconCarrier">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="8" y1="9" x2="8.01" y2="9" stroke-width="2" stroke-linecap="round"></line>
+              <line x1="15.99" y1="9" x2="16" y2="9" stroke-width="2" stroke-linecap="round"></line>
+              <line x1="7" y1="15" x2="17" y2="15"></line>
+            </g>
+          </svg>
+
+          <span>Discipline</span>
+        </ion-button>
+        <ion-button (click)="ressources_page()">
+          <svg
+            viewBox="0 0 32 32"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            fill="#000000"
+          >
+            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+            <g id="SVGRepo_iconCarrier">
+              <defs>
+                <clipPath id="clip-folders"><rect width="32" height="32"></rect></clipPath>
+              </defs>
+              <g id="folders" clip-path="url(#clip-folders)">
+                <g id="Group_3059" data-name="Group 3059" transform="translate(-104 -156)">
+                  <g id="Group_3058" data-name="Group 3058">
+                    <g id="Group_3057" data-name="Group 3057">
+                      <g id="Group_3056" data-name="Group 3056">
+                        <path
+                          id="Path_3976"
+                          data-name="Path 3976"
+                          d="M133.274,162.092h-9.587v-.319a2.023,2.023,0,0,0-2.02-2.021H111.083a2.024,2.024,0,0,0-2.021,2.021v1.642h-2.354a2.023,2.023,0,0,0-2.021,2.021V182.21a2.041,2.041,0,0,0,2.039,2.038H128.9a2.04,2.04,0,0,0,2.038-2.038v-1.625h2.337a2.04,2.04,0,0,0,2.038-2.038V164.13A2.04,2.04,0,0,0,133.274,162.092ZM106.687,182.21V167.793l.021-2.378h3.354l7.25.021v1.319a1,1,0,0,0,1,1l10.625.038-.038,14.455Zm26.587-3.625h-2.337V167.793a2.04,2.04,0,0,0-2.038-2.038h-9.587v-.319a2.022,2.022,0,0,0-2.02-2.021h-6.223l.014-1.663,10.6.021v1.319a1,1,0,0,0,1,1h10.587l.038.038Z"
+                          fill="#4b67a0"
+                        ></path>
+                      </g>
+                    </g>
+                  </g>
+                </g>
+              </g>
+            </g>
+          </svg>
+
+          <span> Ressources</span>
+        </ion-button>
+        <ion-button (click)="compte_page()">
+          <!-- <a routerLink="/courses" style="text-decoration: none; display: flex; align-items: center; color: #58586a"> -->
+
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#000000">
+            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+            <g id="SVGRepo_iconCarrier">
+              <path
+                d="M12.0095 2.8511C14.2552 2.8511 16.0757 4.67159 16.0757 6.91728C16.0757 9.16297 14.2552 10.9835 12.0095 10.9835C9.76385 10.9835 7.94336 9.16297 7.94336 6.91728C7.94336 4.67159 9.76385 2.8511 12.0095 2.8511Z"
+                stroke="#a2ddec"
+                stroke-width="1.7022"
+              ></path>
+              <path
+                d="M5.93745 17.5707L5.5386 18.9382C5.2162 20.0436 6.04522 21.1489 7.19665 21.1489H16.8226C17.974 21.1489 18.803 20.0436 18.4806 18.9382L18.0818 17.5707C17.2946 14.872 14.8208 13.0166 12.0096 13.0166C9.19842 13.0166 6.72458 14.872 5.93745 17.5707Z"
+                stroke="#a2ddec"
+                stroke-width="1.7022"
+              ></path>
+            </g>
+          </svg>
+
+          <span> Compte </span>
+          <!-- </a> -->
+        </ion-button>
+
+        <!-- <ion-button>
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M21 3H9C8.20435 3 7.44129 3.31607 6.87868 3.87868C6.31607 4.44129 6 5.20435 6 6V30C6 30.7956 6.31607 31.5587 6.87868 32.1213C7.44129 32.6839 8.20435 33 9 33H27C27.7956 33 28.5587 32.6839 29.1213 32.1213C29.6839 31.5587 30 30.7956 30 30V12L21 3Z"
+              stroke="#A3A5A7"
+              stroke-width="2.2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path d="M21 3V12H30" stroke="#A3A5A7" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M24 19.5H12" stroke="#A3A5A7" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M24 25.5H12" stroke="#A3A5A7" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+            <path
+              d="M15 13.5H13.5H12"
+              stroke="#A3A5A7"
+              stroke-width="2.2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          <span>Devoirs</span>
+        </ion-button> -->
+      </ion-fab-list>
+    </ion-fab>
+    <ion-fab *ngIf="user" horizontal="start" vertical="bottom" slot="fixed">
+      <ion-button class="lms-btn" (click)="courses_page()">
+        <img src="assets/lms/LearningLms.png" alt="" />
+      </ion-button>
+    </ion-fab>
+
+    <div *ngIf="user" slot="end" class="profil">
+      <a routerLink="/compte" style="display: flex; align-items: center; text-decoration: none">
+        <div class="photo">
+          <div class="online-tick"></div>
+          <img
+            src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80"
+            alt=""
+          />
+        </div>
+        <p style="margin: 3px; color: black">{{ user.nom }}</p>
+      </a>
+      <ion-button (click)="logOut()">
+        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M20 4H25.3333C26.0406 4 26.7189 4.28095 27.219 4.78105C27.719 5.28115 28 5.95942 28 6.66667V25.3333C28 26.0406 27.719 26.7189 27.219 27.219C26.7189 27.719 26.0406 28 25.3333 28H20"
+            stroke="#F45849"
+            stroke-width="2.7"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M13.3359 22.6654L20.0026 15.9987L13.3359 9.33203"
+            stroke="#F45849"
+            stroke-width="2.7"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path d="M20 16H4" stroke="#F45849" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </ion-button>
+    </div>
+  </div>
+</ion-tabs>

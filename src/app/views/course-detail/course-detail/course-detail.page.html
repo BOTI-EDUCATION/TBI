@@ -1,0 +1,92 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>course detail</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content #content>
+  <div *ngIf="course">
+    <h1>{{course.label}}</h1>
+    <br />
+    <button class="btn" (click)="startLearning()">commencer</button>
+    <button class="btn" (click)="showContents()">show details</button>
+  </div>
+  <div *ngIf="showModal" class="modal" [ngClass]="{'show-modal' : showModal === true}">
+    <div class="header">
+      <button (click)="closeModal()">close</button>
+    </div>
+    <ul>
+      <li *ngFor="let conts of ressources">
+        <span>{{conts.label}}</span>
+        <ul *ngFor="let cont of conts.contents">
+          <li>{{cont.type_label}} {{cont.duree}} min</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  <div *ngIf="startContents">
+    <div *ngFor="let res of ressources;let i = index">
+      <div *ngIf="currentRessource === i ">
+        <h2>{{res.label}}</h2>
+        <div>
+          <div *ngFor="let cont of res.contents">
+            <span>
+              {{cont.type_label }}
+            </span>
+            <div></div>
+          </div>
+          
+          <!-- <div *ngFor="let cont of res.contents">
+          <div *ngIf="content_index === 1">
+            <div *ngIf="cont.type_id === 1 ">
+              <h1>{{cont.type_label }}</h1>
+              <button (click)="showNextContent(contents[currentContent].type_id)">continuer</button>
+            </div>
+          </div>
+          <div>
+            <div *ngIf="content_index === 2">
+              <div *ngIf="cont.type_id === 2  ">
+                <h1>{{cont.type_label }}</h1>
+                <button (click)="showNextContent(contents[currentContent].type_id)">continuer</button>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="content_index === 3">
+            <div *ngIf="cont.type_id === 3  ">
+              <h1>{{cont.type_label }}</h1>
+              <button (click)="showNextContent(contents[currentContent].type_id)">continuer</button>
+            </div>
+          </div>
+          <div *ngIf="content_index === 4">
+            <div *ngIf="cont.type_id === 4  ">
+              <h1>{{cont.type_label }}</h1>
+              <button (click)="showNextContent(contents[currentContent].type_id)">continuer</button>
+            </div>
+          </div>
+          <div *ngIf="content_index === 5">
+            <div *ngIf="cont.type_id === 5  ">
+              <h1>{{cont.type_label }}</h1>
+              <button (click)="showNextContent(contents[currentContent].type_id)">continuer</button>
+            </div>
+          </div>
+          <div *ngIf="content_index === 6">
+            <div *ngIf="cont.type_id === 6 ">
+              <h1>{{cont.type_label }}</h1>
+              <button (click)="showNextContent(contents[currentContent].type_id)">continuer</button>
+            </div>
+          </div>
+          <div *ngIf="content_index === 7">
+            <div *ngIf="cont.type_id === 7 ">
+              <h1>{{cont.type_label }}</h1>
+              <button (click)="showNextContent(contents[currentContent].type_id)">continuer</button>
+            </div>
+          </div>
+        </div> -->
+          {{content_index}}
+        </div>
+      </div>
+    </div>
+    <button *ngIf="!hideNextEtape" (click)="showNextRessource()">next etape</button>
+    <button *ngIf="hideNextEtape" (click)="redirectToCourses()">return to program</button>
+  </div>
+</ion-content>

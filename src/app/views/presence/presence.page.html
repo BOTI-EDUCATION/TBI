@@ -1,0 +1,156 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      <div *ngIf="typePage == 'presence'" class="presence-title">
+        <h3>Présence</h3>
+        <div>
+          <p><span>{{ countAbsences() }} </span> Absence</p>
+          <p><span>{{ countRetards() }} </span> Retard</p>
+        </div>
+      </div>
+      <div *ngIf="typePage == 'discipline'" class="presence-title">
+        <h3>Discipline</h3>
+        <div>
+          <p><span>{{ countPositives() }} </span> Positive</p>
+          <p><span>{{ countNegatives() }} </span> Négative</p>
+        </div>
+      </div>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="presence-container">
+
+
+    <div class="eleves" *ngIf="!eleves">
+      <ion-row class="ion-align-items-center">
+        <ion-col size="4" *ngFor="let number of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]">
+          <div class="eleve-item">
+            <div>
+
+              <ion-skeleton-text animated style="margin: auto; width: 3rem; height: 3rem; border-radius: 50%;">
+              </ion-skeleton-text>
+              <p>
+                <ion-skeleton-text animated style="height: 0.4rem; width: 100%;">
+                </ion-skeleton-text>
+              </p>
+              <div class="actions">
+
+                <ion-button>
+                  <svg viewBox="0 0 22 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M16.5 6L5.5 17" stroke="#A6A5A5" stroke-width="2.4" stroke-linecap="round"
+                      stroke-linejoin="round" />
+                    <path d="M5.5 6L16.5 17" stroke="#A6A5A5" stroke-width="2.4" stroke-linecap="round"
+                      stroke-linejoin="round" />
+                  </svg>
+
+                </ion-button>
+                <ion-button>
+                  <svg viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M12 22.5C17.5228 22.5 22 18.0228 22 12.5C22 6.97715 17.5228 2.5 12 2.5C6.47715 2.5 2 6.97715 2 12.5C2 18.0228 6.47715 22.5 12 22.5Z"
+                      stroke="#A6A5A5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M12 6.5V12.5L16 14.5" stroke="#A6A5A5" stroke-width="2" stroke-linecap="round"
+                      stroke-linejoin="round" />
+                  </svg>
+                </ion-button>
+              </div>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+    </div>
+
+    <div class="eleves" *ngIf="eleves">
+      <ion-row class="ion-align-items-center">
+        <ion-col size="4" *ngFor="let eleve of eleves">
+          <div class="eleve-item">
+            <div>
+              <img [src]="eleve.photo" alt="">
+              <p>{{eleve.nom}}</p>
+              <div class="actions" *ngIf="typePage == 'presence'">
+
+                <ion-button (click)="toggle_absent(eleve)" [ngClass]="{'absent-selected': eleve.absent}">
+                  <svg viewBox="0 0 22 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M16.5 6L5.5 17" stroke="#A6A5A5" stroke-width="2.4" stroke-linecap="round"
+                      stroke-linejoin="round" />
+                    <path d="M5.5 6L16.5 17" stroke="#A6A5A5" stroke-width="2.4" stroke-linecap="round"
+                      stroke-linejoin="round" />
+                  </svg>
+
+                </ion-button>
+                <ion-button (click)="retard_page(eleve)" [ngClass]="{'retard-selected': eleve.retard}">
+                  <svg viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M12 22.5C17.5228 22.5 22 18.0228 22 12.5C22 6.97715 17.5228 2.5 12 2.5C6.47715 2.5 2 6.97715 2 12.5C2 18.0228 6.47715 22.5 12 22.5Z"
+                      stroke="#A6A5A5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M12 6.5V12.5L16 14.5" stroke="#A6A5A5" stroke-width="2" stroke-linecap="round"
+                      stroke-linejoin="round" />
+                  </svg>
+                </ion-button>
+              </div>
+              <div class="actions" *ngIf="typePage == 'discipline'">
+
+                <ion-button (click)="discipline_page(eleve, true)"
+                  [ngClass]="{'positive-selected': eleve.action_positive && eleve.action_positive.id}">
+                  <svg viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M5.83073 17.8346H3.33073C2.8887 17.8346 2.46478 17.659 2.15222 17.3465C1.83966 17.0339 1.66406 16.61 1.66406 16.168V10.3346C1.66406 9.89261 1.83966 9.46868 2.15222 9.15612C2.46478 8.84356 2.8887 8.66797 3.33073 8.66797H5.83073M11.6641 7.0013V3.66797C11.6641 3.00493 11.4007 2.36904 10.9318 1.9002C10.463 1.43136 9.8271 1.16797 9.16406 1.16797L5.83073 8.66797V17.8346H15.2307C15.6327 17.8392 16.0227 17.6983 16.329 17.438C16.6353 17.1776 16.8371 16.8154 16.8974 16.418L18.0474 8.91797C18.0837 8.6791 18.0675 8.4352 18.0002 8.20318C17.9328 7.97115 17.8158 7.75655 17.6573 7.57423C17.4987 7.39191 17.3025 7.24624 17.082 7.14732C16.8616 7.04839 16.6223 6.99857 16.3807 7.0013H11.6641Z"
+                      stroke="#A6A5A5" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </ion-button>
+                <ion-button (click)="discipline_page(eleve, false)"
+                  [ngClass]="{'negative-selected': eleve.action_negative && eleve.action_negative.id}">
+                  <svg viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M13.1652 1.16827H15.3902C15.8619 1.15993 16.3201 1.32505 16.6781 1.63229C17.036 1.93952 17.2687 2.36749 17.3319 2.83494V8.66827C17.2687 9.13572 17.036 9.56368 16.6781 9.87092C16.3201 10.1782 15.8619 10.3433 15.3902 10.3349H13.1652M7.33189 12.0016V15.3349C7.33189 15.998 7.59529 16.6339 8.06413 17.1027C8.53297 17.5715 9.16885 17.8349 9.83189 17.8349L13.1652 10.3349V1.16827H3.76523C3.36329 1.16373 2.97325 1.3046 2.66697 1.56493C2.3607 1.82526 2.15883 2.18751 2.09856 2.58494L0.94856 10.0849C0.912304 10.3238 0.928415 10.5677 0.995777 10.7997C1.06314 11.0318 1.18014 11.2464 1.33868 11.4287C1.49721 11.611 1.69349 11.7567 1.91392 11.8556C2.13434 11.9545 2.37364 12.0043 2.61523 12.0016H7.33189Z"
+                      stroke="#A6A5A5" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </ion-button>
+              </div>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+    </div>
+
+  </div>
+
+</ion-content>
+<div class="presence-actions">
+  <div class="zone">
+    <ion-button class="btn-close" (click)="close_modal()">
+      <svg width="24" height="21" viewBox="0 0 24 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd"
+          d="M22.5 8.00023C23.3284 8.00023 24 8.6718 24 9.50023C24 10.3287 23.3284 11.0002 22.5 11.0002L4.51077 11.0002L11.0728 17.5623C11.7021 18.1915 11.7021 19.2118 11.0728 19.8411C10.4435 20.4703 9.42325 20.4703 8.79397 19.8411L0.881598 11.9287C0.847416 11.8945 0.815091 11.8592 0.784623 11.8228C0.663878 11.7559 0.550349 11.6712 0.447873 11.5688C-0.142382 10.9785 -0.142383 10.0215 0.447873 9.43126L1.42386 8.45527C1.4341 8.44473 1.4445 8.43433 1.45505 8.42409L8.50156 1.37757C9.09182 0.787316 10.0488 0.787317 10.6391 1.37757C11.2293 1.96783 11.2293 2.92482 10.6391 3.51508L6.15391 8.00023L22.5 8.00023Z"
+          fill="white" />
+      </svg>
+    </ion-button>
+    <div class="filter-classes">
+      <div class="current-classe" *ngIf="!toggleClasse && seance" (click)="toggle_classe()">
+        <div>
+          <p>{{seance.classe}} - {{seance.matiere}}</p>
+          <span>{{ seance.periode }}</span>
+        </div>
+        <ion-icon name="chevron-forward-outline"></ion-icon>
+      </div>
+      <div class="filter-menu" *ngIf="toggleClasse">
+        <div class="filter-classe" [ngClass]="{'seance-active': seance.id == seance_item.id }"
+          *ngFor="let seance_item of seances" (click)="toggle_classe(seance_item)">
+          <div>
+            <p>{{seance_item.classe}} - {{seance_item.matiere}}</p>
+            <span>{{ seance_item.periode }}</span>
+          </div>
+        </div>
+        <ion-button class="btn-close" (click)="toggle_classe()">
+          <ion-icon name="close-outline"></ion-icon>
+        </ion-button>
+      </div>
+    </div>
+    <ion-button [disabled]="!saveBtn" (click)="savePresence()" class="btn-save">
+      Enregistrer
+    </ion-button>
+  </div>
+</div>

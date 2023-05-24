@@ -1,0 +1,20 @@
+.modal {
+    position: absolute;
+    top: -500px;
+    background-color:aquamarine;
+    width: 300px;
+    height: 400px;
+    transition: .5s ease;   
+}
+.show-modal{
+    top: 50% !important;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.btn{
+    padding: 10px;
+    border-radius: 5px;
+    background: chartreuse;
+    margin-right: 5px;
+}

@@ -1,0 +1,59 @@
+<ion-header mode="md">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Mon compte</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="tbi-padding">
+
+    <form [formGroup]="registerForm">
+      <img src="assets/signin.svg" alt="">
+      <h1><span (click)="page_login()">Connexion</span><span>Inscription</span></h1>
+      <ion-list class="ion-list-form">
+        <ion-item lines="none">
+          <ion-label position="floating">Nom</ion-label>
+          <ion-input formControlName="nom" type="text">
+          </ion-input>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label position="floating">Prénom</ion-label>
+          <ion-input formControlName="prenom" type="text">
+          </ion-input>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label position="floating">Téléphone</ion-label>
+          <ion-input formControlName="tel" type="text">
+          </ion-input>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label position="floating">Email</ion-label>
+          <ion-input formControlName="email" type="email">
+          </ion-input>
+        </ion-item>
+        <ion-item lines="none" hidden>
+          <ion-label position="floating">Pays de résidence</ion-label>
+          <ion-select interface="popover" formControlName="pays_id">
+            <ion-select-option *ngFor="let n of pays" [value]="n.value">{{ n['text'] }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label position="floating">Mot de passe</ion-label>
+          <ion-input formControlName="password" [type]="showPwd ? 'text' : 'password'">
+          </ion-input>
+          <div class="show-pwd">
+            <ion-icon [name]=" pwdIcon" (click)="togglePwd()"></ion-icon>
+          </div>
+        </ion-item>
+      </ion-list>
+
+      <ion-button (click)="onSignUp()" class="btn-default">
+        S'inscrire
+      </ion-button>
+
+    </form>
+  </div>
+</ion-content>

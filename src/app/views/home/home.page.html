@@ -1,0 +1,22 @@
+<ion-header mode="md">
+  <ion-toolbar>
+    <ion-title>
+      <div class="toolbar-home" *ngIf="data?.seance">
+        <div class="title">
+          <span>SÉANCE EN COURS</span>
+        </div>
+        <div class="content">
+          <span class="matiere">{{ data?.seance.classe }} - {{ data?.seance.matiere }}</span>
+          <span class="date">{{ data?.seance.periode }}</span>
+        </div>
+      </div>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true" [scrollEvents]="true" (ionScroll)="logScrolling($event)">
+
+
+  <div class="tbi-padding logo-container">
+    <img src="assets/boti-logo.svg" alt="">
+  </div>
+</ion-content>

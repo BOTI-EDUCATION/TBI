@@ -1,0 +1,335 @@
+<ion-header *ngIf="!courseExists">
+  <ion-toolbar><h1>{{filters.unite_label}}</h1></ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="courses-container" *ngIf="!courseExists">
+    <div class="grid">
+      <div class="bx">
+        <div class="col" *ngFor="let rubrique of rubriques_tree">
+          <h3 class="title">{{rubrique.label}}</h3>
+          <div class="fx fx-wrap fx-courses">
+            <div
+              *ngFor="let rub of rubrique.lecons; let i = index"
+              (click)="getCourse(rub.id,i,rubrique.lecons.length)"
+              class="course-div"
+              [attr.data-index]="i"
+            >
+              <div class="lec">
+                <span class="number">{{i + 1}} . </span>
+                <span class="lecon"> {{rub.label}} </span>
+              </div>
+              <span class="percent">0 %</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bx">
+        <div class="bx-child" *ngIf="course" style="text-align: center">
+          <h4>Cours {{course_number}} / {{rub_count}}</h4>
+          <div class="course-title">
+            <h3>{{course.label}}</h3>
+          </div>
+          <div class="obs">
+            <div class="child" (click)="show_objectifs()">
+              <span> Objectifs pédagogiques </span><img src="assets/lms/Arrow.png" alt="ss" />
+            </div>
+            <div [ngClass]="{'active-obs-div':showObjectifs}" class="detail">
+              <p [innerHTML]="course.objectifs ">{{course.introduction }}</p>
+            </div>
+            <div class="child" (click)="show_syllabus()">
+              <span> Syllabus </span><img src="assets/lms/Arrow.png" alt="ss" />
+            </div>
+            <div [ngClass]="{'active-obs-div':showSyllabus}" class="detail">
+              <p [innerHTML]="course.syllabus">{{course.objectifs }}</p>
+            </div>
+            <div class="child" (click)="show_intro()">
+              <span> Instructions </span><img src="assets/lms/Arrow.png" alt="ss" />
+            </div>
+            <div [ngClass]="{'active-obs-div':showInstructions  }" class="detail">
+              <p [innerHTML]="course.introduction">{{course.syllabus }}</p>
+            </div>
+            <div class="child" (click)="show_prerequis()">
+              <span> Prérequis </span><img src="assets/lms/Arrow.png" alt="ss" />
+            </div>
+            <div [ngClass]="{'active-obs-div':showPrerequis}" class="detail">
+              <p [innerHTML]="course.prerequis">{{course.prerequis }}</p>
+            </div>
+          </div>
+          <button (click)="showCourse(course.id)" class="btn btn-success">Démarrer le cours</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- start course div  -->
+  <div class="fx-course" *ngIf="courseExists && !startLearn">
+    <div class="text">
+      <h1>{{course.label}}</h1>
+      <button (click)="startCourse(course.id)" class="menuLevel choice">Commencer &#8594;</button>
+    </div>
+  </div>
+  <!-- start course div  -->
+  <!-- button for closing the tab selected  -->
+  <div class="courses-actions">
+    <div class="zone">
+      <ion-button class="btn-close" (click)="close_modal()">
+        <svg
+          viewBox="0 0 24 24"
+          version="1.1"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          fill="#000000"
+        >
+          <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+          <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+          <g id="SVGRepo_iconCarrier">
+            <title>Close</title>
+            <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+              <g id="Close">
+                <rect id="Rectangle" fill-rule="nonzero" x="0" y="0" width="24" height="24"></rect>
+                <line
+                  x1="16.9999"
+                  y1="7"
+                  x2="7.00001"
+                  y2="16.9999"
+                  id="Path"
+                  stroke="#ffffff"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                ></line>
+                <line
+                  x1="7.00006"
+                  y1="7"
+                  x2="17"
+                  y2="16.9999"
+                  id="Path"
+                  stroke="#ffffff"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                ></line>
+              </g>
+            </g>
+          </g>
+        </svg>
+      </ion-button>
+    </div>
+  </div>
+
+  <!-- show course ressources div  -->
+  <div style="overflow: auto; height: 72vh" *ngIf="courseExists && startLearn">
+    <div *ngIf="ressources[currentRessource].contents[currentContent]">
+      <div
+        *ngIf=" ressources[currentRessource].contents[currentContent].type_id == 1 && ressources[currentRessource].contents[currentContent].content"
+      >
+        <h3>{{ressources[currentRessource].contents[currentContent].content}}</h3>
+      </div>
+      <div
+        *ngIf="ressources[currentRessource].contents[currentContent].type_id == 2 && ressources[currentRessource].contents[currentContent].content"
+      >
+        <div [innerHTML]="ressources[currentRessource].contents[currentContent].content"></div>
+      </div>
+      <div
+        *ngIf="ressources[currentRessource].contents[currentContent].type_id == 3 && ressources[currentRessource].contents[currentContent].files[0]"
+      >
+        <img
+          [src]="'https://boti.education/'+ressources[currentRessource].contents[currentContent].files[0]"
+          width="500px"
+          alt=""
+        />
+      </div>
+      <div
+        *ngIf="ressources[currentRessource].contents[currentContent].type_id == 4 && ressources[currentRessource].contents[currentContent].link"
+      >
+        <youtube-player
+          [videoId]="ressources[currentRessource].contents[currentContent].link.split('=')[1].split('&')[0]"
+          (ready)="savePlayer($event)"
+        >
+        </youtube-player>
+      </div>
+      <div
+        *ngIf="ressources[currentRessource].contents[currentContent].type_id == 5 && ressources[currentRessource].contents[currentContent].content"
+      ></div>
+      <div
+        class="content-6"
+        *ngIf="ressources[currentRessource].contents[currentContent].type_id == 6 &&ressources[currentRessource].contents[currentContent].content"
+      >
+        <div class="img">
+          <img
+            [src]="'http://localhost/lms/assets/schools/boti/lms/lecons_files/'+ressources[currentRessource].contents[currentContent].image"
+            style="width: 100% !important"
+            alt=""
+          />
+        </div>
+
+        <div [innerHTML]="ressources[currentRessource].contents[currentContent].content">
+          {{ressources[currentRessource].contents[currentContent].contents }}
+        </div>
+      </div>
+      <div
+        *ngIf="ressources[currentRessource].contents[currentContent].type_id == 7  && ressources[currentRessource].contents[currentContent].content"
+      >
+        <div
+          *ngFor="let slide of ressources[currentRessource].contents[currentContent].content;let i = index"
+          [attr.data-index]="i"
+        >
+          <div
+            class="slide"
+            [ngStyle]="{'display:block': index_slide == 0}"
+            [ngClass]="{'slide-active': index_slide == i}"
+            [innerHTML]="slide.content"
+          >
+            {{slide.content}}
+          </div>
+          <div
+            class="btn-cntr"
+            [ngStyle]="{'display:block': index_slide == 0}"
+            [ngClass]="{'slide-active': index_slide == i}"
+            (click)="prevSlide(ressources[currentRessource].contents[currentContent].content.length)"
+          >
+            prev
+          </div>
+          <div
+            class="btn-cntr"
+            [ngStyle]="{'display:block': index_slide == 0}"
+            [ngClass]="{'slide-active': index_slide == i}"
+            (click)="nextSlide(ressources[currentRessource].contents[currentContent].content.length)"
+          >
+            next
+          </div>
+        </div>
+        <!-- [ngClass]="{'slide-active': index_slide === i}" -->
+      </div>
+    </div>
+  </div>
+
+  <!-- show course ressources div  -->
+</ion-content>
+
+<div class="lecons-actions">
+  <div class="zone">
+    <div *ngIf="!courseExists " class="fx filter">
+      <button [ngClass]="{'active-navs':showNavigationLevel}" class="menuLevel" (click)="showMatterNavigation()">
+        <div><span> Matière</span> <span> {{filters.unite_label}}</span></div>
+        <div>
+          <img src="assets/lms/Arrow.png" alt="" />
+        </div>
+      </button>
+      <button [ngClass]="{'active-navs':showMatterLevel}" class="menuLevel" (click)="showLevelNavigation()">
+        <div><span> Classe</span> <span> {{filters.niveau_label}}</span></div>
+        <div>
+          <img src="assets/lms/Arrow.png" alt="" />
+        </div>
+      </button>
+    </div>
+    <div style="width: 100%; justify-content: space-between" *ngIf="courseExists && !startLearn" class="fx filter">
+      <button class="menuLevel choice" (click)="returnToMainPage()">
+        <div><span>&#8592; Retour au programme</span></div>
+      </button>
+      <button (click)="startCourse(course.id)" class="menuLevel choice">
+        <div><span>Etape suivante &#8594;</span></div>
+      </button>
+    </div>
+    <div style="width: 100%; justify-content: space-between" *ngIf="courseExists && startLearn" class="fx filter">
+      <div class="d-flex">
+        <button class="btn-rounded btn-trans btn-shadow" (click)="returnToMainCourse()">
+          <svg
+            width="40px"
+            height="40px"
+            viewBox="0 0 24 24"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            fill="#f86836"
+            stroke="#f86836"
+          >
+            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+            <g id="SVGRepo_iconCarrier">
+              <title>Close</title>
+              <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <g id="Close">
+                  <rect id="Rectangle" fill-rule="nonzero" x="0" y="0" width="24" height="24"></rect>
+                  <line
+                    x1="16.9999"
+                    y1="7"
+                    x2="7.00001"
+                    y2="16.9999"
+                    id="Path"
+                    stroke="#f86836"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  ></line>
+                  <line
+                    x1="7.00006"
+                    y1="7"
+                    x2="17"
+                    y2="16.9999"
+                    id="Path"
+                    stroke="#f86836"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  ></line>
+                </g>
+              </g>
+            </g>
+          </svg>
+        </button>
+        <span class="main-color">{{ressources[currentRessource].label}}</span>
+      </div>
+      <div class="d-flex">
+        <button (click)="previusRessource()" class="btn-rounded btn-shadow btn-material">
+          <svg width="40px" height="40px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+            <g id="SVGRepo_iconCarrier">
+              <path
+                d="M15 19.9201L8.47997 13.4001C7.70997 12.6301 7.70997 11.3701 8.47997 10.6001L15 4.08008"
+                stroke="#ffffff"
+                stroke-width="1.5"
+                stroke-miterlimit="10"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></path>
+            </g>
+          </svg>
+        </button>
+        <button (click)="nextRessource()" class="btn-rounded btn-shadow btn-material">
+          <svg width="40px" height="40px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+            <g id="SVGRepo_iconCarrier">
+              <path
+                d="M8.91016 19.9201L15.4302 13.4001C16.2002 12.6301 16.2002 11.3701 15.4302 10.6001L8.91016 4.08008"
+                stroke="#ffffff"
+                stroke-width="1.5"
+                stroke-miterlimit="10"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></path>
+            </g>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <ul [ngClass]="{'showListLevel' : showNavigationLevel}" class="list" *ngIf="showNavigationLevel && !courseExists">
+      <li
+        *ngFor="let niveau of niveaux "
+        [ngClass]="{'active' : niveau.value === filters.niveau_id}"
+        (click)="filterByNiveau(niveau)"
+      >
+        <!-- <span> {{niveau.text}}</span> -->
+        <span>{{niveau.text}}</span>
+      </li>
+    </ul>
+    <ul [ngClass]="{'showListLevel' : showMatterLevel}" class="list" *ngIf="showMatterLevel && !courseExists">
+      <li
+        [ngClass]="{'active' : unite.value === filters.unite_id}"
+        *ngFor="let unite of unites "
+        (click)="filterCourseByUnite(unite)"
+      >
+        <span>{{unite.text}}</span>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- button for closing the tab selected  -->

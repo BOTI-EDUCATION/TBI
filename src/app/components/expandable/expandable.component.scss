@@ -1,0 +1,40 @@
+:host {
+  display: block;
+}
+
+ion-item {
+  --background: transparent !important;
+  --padding-start: 15px;
+  --inner-border-width: 0;
+  --ripple-color: transparent;
+  --background-hover: transparent !important;
+}
+
+ion-label {
+  width: 100% !important;
+  overflow: hidden !important;
+  display: inline-block !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  padding: 5px 0px;
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 800 !important;
+  font-size: 1rem !important;
+  letter-spacing: -0.03em;
+  color: #12122C !important;
+}
+
+.content {
+  display: none;
+  ng-content {
+    font-family: 'Open Sans';
+    color: #676262;
+    font-size: .8rem;
+  }
+}
+:host.expanded {
+  .content {
+    display: block;
+  }
+}
